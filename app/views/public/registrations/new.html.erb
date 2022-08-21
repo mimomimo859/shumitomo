@@ -1,29 +1,35 @@
-<h2>Sign up</h2>
-
-<%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
-  <%= render "public/shared/error_messages", resource: resource %>
-
-  <div class="field">
-    <%= f.label :email %><br />
-    <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
+<main class="container">
+ <div class="row d-flex justify-content-start">
+  <div class="col-7">
+   <h4 class="mt-5">新規登録</h4>
+    <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+    <%= render "public/shared/error_messages", resource: resource %>
+    <table class="d-flex justify-content-center">
+     <tr>
+      <td><p class="m-2"><%= f.label :email, "メールアドレス" %></p></td>
+      <td><%= f.email_field :email, autofocus: true, autocomplete: "email" %></td>
+     </tr>
+     <tr>
+      <td><p class="m-2"><%= f.label :password, "パスワード" %></p></td>
+      <td>
+      <%= f.label :password, "パスワード" %>
+      <% if @minimum_password_length %>
+      <em>(<%= @minimum_password_length %> characters minimum)</em>
+      <% end %><br />
+      <%= f.password_field :password, autocomplete: "new-password" %>
+      </td>
+     </tr>
+     <tr>
+      <td></td>
+      <td><%= f.submit "新規登録", class: 'btn btn-primary btn-sm' %></td>
+     </tr>
+    </table>
+    
   </div>
 
-  <div class="field">
-    <%= f.label :password %>
-    <% if @minimum_password_length %>
-    <em>(<%= @minimum_password_length %> characters minimum)</em>
-    <% end %><br />
-    <%= f.password_field :password, autocomplete: "new-password" %>
-  </div>
-
-  <div class="field">
-    <%= f.label :password_confirmation %><br />
+  
+    <%= f.label :password_confirmation, "パスワード（確認用）" %>
     <%= f.password_field :password_confirmation, autocomplete: "new-password" %>
-  </div>
-
-  <div class="actions">
-    <%= f.submit "Sign up" %>
-  </div>
-<% end %>
-
-<%= render "public/shared/links" %>
+    
+ </div>
+</main>
