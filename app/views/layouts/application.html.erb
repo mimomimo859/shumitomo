@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Shumitomo</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= stylesheet_pack_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
+  </head>
+
+  <body>
+    <header>
+      
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <%= link_to "shumitomo", root_path , class: "navbar-brand" %>
+
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+     <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+     <ul class="navbar-nav ml-auto">
+      <% if end_user_signed_in? %> <%#if 条件1%>
+          <%#処理1   条件1がtrueだったら処理1を行う%>
+      <li class="nav-item mr-5">
+        <p>ようこそ、<%= current_end_user.name %>さん！</p>
+      </li>
+      <li class="nav-item mr-5">
+        <%= link_to profile_path, class: "nav-link text-dark" do %>
+         プロフィール
+        <% end %>
+      </li>
+      <li class="nav-item mr-5">
+        <%= link_to posts_path, class: "nav-link text-dark" do %>
+         投稿一覧
+        <% end %>
+      </li>
+      <li class="nav-item mr-5">
+        <%= link_to destroy_end_user_session_path, method: :delete, class: "nav-link text-dark" do %>
+         ログアウト
+        <% end %>
+      </li>
+      <% elsif admin_signed_in? %> <%#elsif 条件2%>
+          <%#処理2  条件1がfalse、かつ条件2がtrueだったら処理2を行う%>
+      <li class="nav-item mr-5">
+        <%= link_to admin_end_user_path, class: "nav-link text-dark" do %>
+         会員一覧
+        <% end %>
+      </li>
+      <li class="nav-item mr-5">
+        <%= link_to admin_top_path, class: "nav-link text-dark" do %>
+         投稿一覧
+        <% end %>
+      </li>
+      <li class="nav-item mr-5">
+        <%= link_to destroy_admin_session_path, method: :delete, class: "nav-link text-dark" do %>
+         ログアウト
+        <% end %>
+      </li>
+      <% else %><%#else処理x%>
+          <%#処理x 条件1～条件nが全てfalseだったら処理xを行う%>
+      <li class="nav-item mr-5">
+        <%= link_to about_path, class: "nav-link text-dark" do %>
+         About
+        <% end %>
+      </li>
+      <li class="nav-item mr-5">
+        <%= link_to posts_path, class: "nav-link text-dark" do %>
+         投稿一覧
+        <% end %>
+      </li>
+      <li class="nav-item mr-5">
+        <%= link_to new_end_user_registration_path, class: "nav-link text-dark" do %>
+         新規登録
+        <% end %>
+      </li>
+      <li class="nav-item mr-5">
+        <%= link_to end_user_session_path, class: "nav-link text-dark" do %>
+         ログイン
+        <% end %>
+      </li>
+      <% end %>
+     </ul>
+    </div>
+    
+    </header>
+    <%= yield %>
+  </body>
+</html>
