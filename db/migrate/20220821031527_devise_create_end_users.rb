@@ -42,6 +42,8 @@ class DeviseCreateEndUsers < ActiveRecord::Migration[6.1]
       t.text :self_introduction
       ## 性別
       t.integer :sex, null: false
+      ## 退会ステータス
+      t.boolean :is_deleted, default: false, null: false
     end
 
     add_index :end_users, :email,                unique: true

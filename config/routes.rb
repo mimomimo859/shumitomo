@@ -14,8 +14,12 @@ Rails.application.routes.draw do
   sessions: "admin/sessions"
   }
 
+  devise_scope :end_user do
+    post 'end_users/guest_sign_in', to: 'public/sessions#guest_sign_in'
+  end
+
   scope module: :public do
-   resources :posts, only: [:create, :index, :edit, :update, :destroy]
+   resources :posts
    resources :posts do
     resource :likes, only: [:create, :destroy]
     resource :comments, only: [:create, :destroy]

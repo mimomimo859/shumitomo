@@ -1,7 +1,7 @@
 class ApplicationController < ActionController::Base
   #deviseにまつわる画面に行った時、全てのコントローラーが実行される前にconfigure_permitted_parametersが起動する。
   before_action :configure_permitted_parameters, if: :devise_controller?
-  
+
   #このコントローラーに記述してあるアクションは、adminだけが使用できる
   #admin_urlメソッドを参照する
   before_action :authenticate_admin!, if: :admin_url
@@ -13,6 +13,7 @@ class ApplicationController < ActionController::Base
     request.fullpath.include?("/admin")
   end
 
+  #サインアウトした後の遷移先
   def after_sign_out_path_for(resource_or_scope)
     if resource_or_scope == :customer
         root_path
@@ -27,7 +28,7 @@ class ApplicationController < ActionController::Base
   protected
 
   def configure_permitted_parameters
-    devise_parameter_sanitizer.permit(:sign_up, keys: [:name])
+    devise_parameter_sanitizer.permit(:sign_up, keys: [:name,:sex])
   end
 
 end

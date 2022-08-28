@@ -1,0 +1,61 @@
+<main class="container">
+ <div class="row">
+
+  <div class="col-7">
+   <h4 class="mt-5">プロフィール編集</h4>
+     <%= form_with model: @end_user do |f| %>
+     <table class="d-flex justify-content-center">
+      <tr>
+       <td>
+        <p class="mt-4">
+         <%= f.label :profile_image, "プロフィール画像" %>
+        </p>
+       </td>
+       <td><%= f.file_field :profile_image, placeholder: "ファイルを選択", accept: "image/*" %></td>
+      </tr>
+      <tr>
+       <td>
+        <p class="m-2"><%= f.label :email, "メールアドレス" %></p>
+       </td>
+       <td>
+        <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
+       </td>
+      </tr>
+      <tr>
+       <td>
+        <p class="m-2"><%= f.label :name, "ユーザー名" %></p>
+       </td>
+       <td>
+        <%= f.text_field :name %>
+       </td>
+      </tr>
+      <tr>
+       <td>
+        <p class="m-2"><%= f.label :sex, "性別" %></p>
+       </td>
+       <td>
+        <%= f.radio_button :sex, "man" %>
+        <%= f.label :sex, "男性", {value: 0, style: "display: inline-block;"} %>
+        <%= f.radio_button :sex, "female" %>
+        <%= f.label :sex, "女性", {value: 1, style: "display: inline-block;"} %>
+        <%= f.radio_button :sex, "non_binary" %>
+        <%= f.label :sex, "X", {value: 2, style: "display: inline-block;"} %>
+       </td>
+       </tr>
+       <tr>
+       <td>
+        <p class="m-2"><%= f.label :self_introduction, "自己紹介" %></p>
+       </td>
+       <td>
+         <%= f.text_area :self_introduction %>
+       </td>
+       <tr>
+        <td></td>
+        <td><%= f.submit "変更", class: 'btn btn-primary btn-sm' %></td>
+       </tr>
+     </table>
+     <% end %>
+  </div>
+
+ </div>
+</main>

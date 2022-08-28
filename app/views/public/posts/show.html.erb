@@ -1,0 +1,34 @@
+<main class="container">
+ <div class="row">
+  <div class="col-lg-6 m-5">
+
+   <div class="container">
+    <img src="sample.png" class="img-fluid" alt="">
+     <%= image_tag attachment_url(@post, :picture), size: "widthxheight", class: "img-fluid" %>
+
+   <div class="m-5">
+    <%= @post.content %>
+   </div>
+
+   <div class="m-5">
+   <% if @post.liked?(current_end_user) %>
+    <%# 一致するレコードが存在する＝すでにいいね済みの場合はdestroyアクションへ %>
+    <%= link_to post_likes_path(@post.id), method: :delete do %>
+        <span style="color:red;">❤︎</span>
+    <% end %>
+   <% else %>
+    <%# 一致するレコードが存在しない＝まだいいねしていない場合はcreateアクションへ %>
+    <%= link_to post_likes_path(@post.id), method: :post do %>
+        <span>❤︎</span>
+    <% end %>
+   <% end %>
+   </div>
+   
+   <div class="m-5">
+    
+   </div> 
+  
+  </div>
+
+ </div>
+</main>

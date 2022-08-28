@@ -1,7 +1,8 @@
 <main class="container">
  <div class="row d-flex justify-content-start">
+
   <div class="col-7">
-   <h4 class="mt-5">新規登録</h4>
+   <h4 class="mt-5 d-flex justify-content-center">新規登録</h4>
     <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
     <%= render "public/shared/error_messages", resource: resource %>
     <table class="d-flex justify-content-center">
@@ -10,26 +11,45 @@
       <td><%= f.email_field :email, autofocus: true, autocomplete: "email" %></td>
      </tr>
      <tr>
-      <td><p class="m-2"><%= f.label :password, "パスワード" %></p></td>
       <td>
-      <%= f.label :password, "パスワード" %>
-      <% if @minimum_password_length %>
-      <em>(<%= @minimum_password_length %> characters minimum)</em>
-      <% end %><br />
-      <%= f.password_field :password, autocomplete: "new-password" %>
+       <p class="m-2"><%= f.label :name, "ユーザー名" %></p>
+      </td>
+      <td>
+       <%= f.text_field :name %>
       </td>
      </tr>
      <tr>
-      <td></td>
-      <td><%= f.submit "新規登録", class: 'btn btn-primary btn-sm' %></td>
+      <td>
+       <p class="m-2"><%= f.label :sex, "性別" %></p>
+      </td>
+      <td>
+       <%= f.radio_button :sex, "man" %>
+       <%= f.label :sex, "男性", {value: 0, style: "display: inline-block;"} %>
+       <%= f.radio_button :sex, "female" %>
+       <%= f.label :sex, "女性", {value: 1, style: "display: inline-block;"} %>
+       <%= f.radio_button :sex, "non_binary" %>
+       <%= f.label :sex, "X", {value: 2, style: "display: inline-block;"} %>
+      </td>
+     </tr>
+     <tr>
+      <td>
+       <p class="m-2"><%= f.label :password, "パスワード" %>
+       <% if @minimum_password_length %>
+       <em>(<%= @minimum_password_length %> 文字以上)</em>
+       <% end %></p>
+      </td>
+      <td>
+       <%= f.password_field :password, autocomplete: "new-password" %>
+      </td>
+     </tr>
+     <tr>
+      <td><p class="m-2"><%= f.label :password_confirmation, "パスワード（確認用）" %></p></td>
+      <td><%= f.password_field :password_confirmation, autocomplete: "new-password" %></td>
      </tr>
     </table>
-    
+    <spen class="mt-5 d-flex justify-content-center"><%= f.submit "新規登録", class: 'btn btn-primary btn-sm' %></spen>
+    <% end %>
   </div>
 
-  
-    <%= f.label :password_confirmation, "パスワード（確認用）" %>
-    <%= f.password_field :password_confirmation, autocomplete: "new-password" %>
-    
  </div>
 </main>

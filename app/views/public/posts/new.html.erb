@@ -1,0 +1,31 @@
+<main class="container px-5 px-sm-0">
+ <div class="row">
+
+  <div class="col-lg-12">
+
+   <h4 class="m-4">新規投稿</h4>
+
+   <%= form_with model: @post, local:true, url:posts_path  do |f| %>
+
+   <table>
+    <%= f.hidden_field :end_user_id, :value => current_end_user.id %>
+    <tr>
+     <td><p class="mt-4"><%= f.label :picture, "イラスト画像" %></p></td>
+     <td><%= f.attachment_field :picture, placeholder: "ファイルを選択", accept: "image/*" %></td>
+    </tr>
+    <tr>
+     <td><p class="mt-4"><%= f.label :content, "投稿記事" %></p></td>
+     <td><%= f.text_area :content %></td>
+    </tr>
+    <tr>
+     <td></td>
+     <td><%= f.submit '新規投稿', class: 'btn btn-success btn-sm' %></td>
+    </tr>
+   </table>
+
+   <% end %>
+
+  </div>
+
+ </div>
+</main>

@@ -4,11 +4,17 @@ class Public::SessionsController < Devise::SessionsController
   #end_user_stateメソッドをログイン前に実行する
   #ただし、createアクションは除く
   before_action :end_user_state, only: [:create]
-  
+
   def after_sign_in_path_for(resource)
     root_path
   end
-  
+
+  def guest_sign_in
+    end_user = EndUser.guest_sign_in
+    sign_in end_user
+    redirect_to root_path, notice: 'ゲストユーザーとしてログインしました。'
+  end
+
   # before_action :configure_sign_in_params, only: [:create]
 
   # GET /resource/sign_in
@@ -32,7 +38,7 @@ class Public::SessionsController < Devise::SessionsController
   # def configure_sign_in_params
   #   devise_parameter_sanitizer.permit(:sign_in, keys: [:attribute])
   # end
-  
+
   def end_user_state
    #【処理内容１】
    #入力されたemailからアカウントを1件取得する
@@ -42,11 +48,11 @@ class Public::SessionsController < Devise::SessionsController
    #【処理内容２】
    #取得したアカウントのパスワードと入力されたパスワードが一致している（処理結果ture）
    #かつ取得したアカウントのis_deletedカラムの中身がtureだった時【処理内容３】を実行する
-    if @end_user.valid_password?(params[:customer][:password]) && @end_user.is_deleted
+    if @end_user.valid_password?(params[:end_user][:password]) && @end_user.is_deleted
    #【処理内容３】
    #【処理内容２】の結果がfalseだった場合は、新規登録画面に遷移する
      redirect_to new_end_user_registration_path
     end
   end
-  
+
 end
