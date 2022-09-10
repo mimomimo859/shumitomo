@@ -65,3 +65,7 @@ gem 'rails-i18n', '~> 6.0'
 gem 'devise-i18n'
 # ページネーション機能
 gem 'kaminari'
+# 非同期機能
+gem 'jquery-rails'
+# enum機能
+gem 'enum_help' 

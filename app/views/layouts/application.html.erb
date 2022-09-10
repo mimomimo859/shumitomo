@@ -28,13 +28,18 @@
         <p>ようこそ、<%= current_end_user.name %>さん！</p>
       </li>
       <li class="nav-item mr-5">
-        <%= link_to profile_path, class: "nav-link text-dark" do %>
+        <%= link_to my_profile_path, class: "nav-link text-dark" do %>
          プロフィール
         <% end %>
       </li>
       <li class="nav-item mr-5">
         <%= link_to posts_path, class: "nav-link text-dark" do %>
          投稿一覧
+        <% end %>
+      </li>
+      <li class="nav-item mr-5">
+        <%= link_to confirm_posts_path, class: "nav-link text-dark" do %>
+         下書き一覧
         <% end %>
       </li>
       <li class="nav-item mr-5">
@@ -91,6 +96,20 @@
     </div>
 
     </header>
-    <%= yield %>
+
+    <main>
+     <!--フラッシュメッセージの部分をdivタグで囲む-->
+     <div id="flash-message">
+      <%= render 'layouts/flash' %>
+     </div>
+     <%= yield %>
+    </main>
+
+    <footer class="text-center text-lg-start bg-white text-muted">
+     <div class="text-center p-4" style="background-color: rgba(0, 0, 0, 0.025);">
+       <p>© 2021 Copyright:MDBootstrap.com</p>
+     </div>
+    </footer>
+
   </body>
 </html>

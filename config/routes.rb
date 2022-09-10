@@ -18,25 +18,35 @@ Rails.application.routes.draw do
     post 'end_users/guest_sign_in', to: 'public/sessions#guest_sign_in'
   end
 
+  get "search" => "searches#search", as: 'search'
+  get "search_confirm" => "searches#search_confirm", as: 'search_confirm'
+
   scope module: :public do
-   resources :posts
    resources :posts do
     resource :likes, only: [:create, :destroy]
-    resource :comments, only: [:create, :destroy]
+    resources :comments, only: [:create, :destroy]
+    collection do
+    get 'confirm'
+    end
    end
-   get 'end_user/profile' => 'end_users#profile', as: 'profile'
+   get 'end_user/my_profile' => 'end_users#my_profile', as: 'my_profile'
    get 'end_user/unsubscribe' => 'end_users#unsubscribe', as: 'unsubscribe'
    patch 'end_user/withdraw' => 'end_users#withdraw', as: 'withdraw'
-   resources :end_users, only: [:update, :create, :edit, :show]
+   resources :end_users, only: [:update, :create, :edit, :show] do
+    member do
+     get :likes
+    end
+   end
    root to: "homes#top"
    get 'homes/about' => 'homes#about', as: 'about'
   end
 
   namespace :admin do
+   resources :posts, only: [:show]
    resources :end_users, only: [:index, :show, :edit, :update]
    resources :comments, only: [:destroy]
+   get "search" => "searches#search", as: 'search'
    get 'homes/top' => "homes#top", as: 'top'
   end
-
 
 end

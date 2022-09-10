@@ -1,0 +1,65 @@
+<main class="container">
+ <div class="row">
+  <div class="col-md-3  d-flex justify-content-around">
+  <h5 class="m-5">プロフィール</h5>
+  </div>
+ </div>
+
+ <div class="row">
+  <div class="col-md-3 m-3 d-flex justify-content-around">
+   <h5>登録情報</h5>
+  </div>
+ </div>
+
+ <div class="col-md-8 m-3">
+  <table class="table table-bordered">
+   <tbody>
+    <tr>
+     <td class="table-active">プロフィール画像</td>
+     <td><%= image_tag @end_user.get_profile_image %></td>
+    </tr>
+    <tr>
+     <td class="table-active">ユーザー名</td>
+     <td><%= @end_user.name %></td>
+    <tr>
+    <tr>
+     <td class="table-active">性別</td>
+     <td><%= @end_user.sex_i18n %></td>
+    <tr>
+    <tr>
+     <td class="table-active">自己紹介</td>
+     <td><%= @end_user.self_introduction %></td>
+    <tr>
+    <tr>
+     <td class="table-active">メールアドレス</td>
+     <td><%= @end_user.email %></td>
+    <tr>
+   <tbody>
+  </table>
+ </div>
+
+ <div class="row">
+  <div class="col-md-3 m-3 d-flex justify-content-around">
+   <%= link_to "いいね一覧", likes_end_user_path(@end_user) %>
+  </div>
+ </div>
+
+ <div class="row">
+  <div class="col-md-3 m-3 d-flex justify-content-around">
+   <h5>投稿履歴</h5>
+   （全<%= @posts.count %>件）
+  </div>
+ </div>
+
+ <div class="row">
+  <% @posts.each do |post| %>
+  <div class="col-md-3">
+   <%= link_to post_path(post.id), class: "text-dark" do %>
+    <%= image_tag attachment_url(post, :picture), size: "200x150" %>
+   <% end %>
+   <p><%= post.content %></p>
+  </div>
+  <% end %>
+ </div>
+
+</main>

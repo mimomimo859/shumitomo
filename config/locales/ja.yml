@@ -210,9 +210,4 @@ ja:
       name: 名前
       age: 年齢
   site_title: サイトのタイトル
-  enums:
-   end_users:
-     sex:
-       man: "男性"
-       female: "女性"
-       non_binary: "X"
+ 

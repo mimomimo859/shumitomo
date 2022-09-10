@@ -27,4 +27,20 @@ class EndUser < ApplicationRecord
   has_many :comments, dependent: :destroy
   has_many :likes, dependent: :destroy
   has_many :posts, dependent: :destroy
+  has_many :liked_posts, through: :likes, source: :post
+
+  #ユーザーが投稿に対して既にいいねしているか判定する
+  def already_liked?(post)
+    likes.exists?(post_id: post.id)
+  end
+  
+  # タグとユーザーと投稿記事をまとめて曖昧検索する
+  def self.search(search)
+    if search != nil
+      EndUser.where('name LIKE(?)', "%#{search}%")
+    else
+      EndUser.all
+    end
+  end
+  
 end

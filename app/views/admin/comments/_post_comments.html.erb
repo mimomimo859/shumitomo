@@ -1,0 +1,15 @@
+<% if @post.comments.present? %>
+ <p>コメント件数：<%= @post.comments.count %></p>
+  <% @post.comments.each do |comment| %>
+  <div class="comment">
+   <span class="mr-2"><%= comment.end_user.name %></span>
+   <%= comment.created_at.strftime('%Y/%m/%d') %></br>
+   <%= comment.comment %>
+    <div class="comment-delete">
+     <%= link_to "削除", admin_comment_path(comment.id), method: :delete, remote: true, data: {confirm: "本当に削除しますか？"} %>
+    </div>
+  </div>
+  <% end %>
+<% else %>
+  <p>コメントはまだありません</p>
+<% end %>

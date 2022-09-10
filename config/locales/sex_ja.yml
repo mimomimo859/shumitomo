@@ -1,0 +1,7 @@
+ja:
+  enums:
+    end_user: # モデル名
+      sex: # カラム名
+        man: '男性'  # enumの値
+        female: '女性'  # enumの値
+        non_binary: 'X'  # enumの値

@@ -1,0 +1,51 @@
+<main class="container">
+ <div class="row">
+  <div class="col-md-3  d-flex justify-content-around">
+  <h5 class="m-5">プロフィール</h5>
+  </div>
+ </div>
+
+ <div class="row">
+  <div class="col-md-3 m-3 d-flex justify-content-around">
+   <h5>登録情報</h5>
+   <%= link_to "編集する", edit_admin_end_user_path(@end_user.id), class: 'btn btn-success btn-sm' %>
+  </div>
+ </div>
+
+ <div class="col-md-8 m-3">
+  <table class="table table-bordered">
+   <tbody>
+    <tr>
+     <td class="table-active">プロフィール画像</td>
+     <td><%= image_tag @end_user.get_profile_image %></td>
+    </tr>
+    <tr>
+     <td class="table-active">ユーザー名</td>
+     <td><%= @end_user.name %></td>
+    <tr>
+    <tr>
+     <td class="table-active">性別</td>
+     <td><%= @end_user.sex_i18n %></td>
+    <tr>
+    <tr>
+     <td class="table-active">自己紹介</td>
+     <td><%= @end_user.self_introduction %></td>
+    <tr>
+    <tr>
+     <td class="table-active">メールアドレス</td>
+     <td><%= @end_user.email %></td>
+    <tr>
+    <tr>
+     <td class="table-active">ステータス</td>
+     <td>
+      <% if @end_user.is_deleted %>
+        <p class="text-muted">退会</p>
+      <% else %>
+        <p class="text-success">有効</p>
+      <% end %>
+     </td>
+    <tr>
+   <tbody>
+  </table>
+ </div>
+</main>

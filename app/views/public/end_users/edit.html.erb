@@ -4,7 +4,7 @@
   <div class="col-7">
    <h4 class="mt-5">プロフィール編集</h4>
      <%= form_with model: @end_user do |f| %>
-     <table class="d-flex justify-content-center">
+     <table class="d-flex justify-content-center m-4">
       <tr>
        <td>
         <p class="mt-4">
@@ -52,10 +52,10 @@
        <tr>
         <td></td>
         <td><%= f.submit "変更", class: 'btn btn-primary btn-sm' %></td>
+        <td><%= link_to '退会する', unsubscribe_path, class: 'btn btn-danger btn-sm' %></td>
        </tr>
      </table>
      <% end %>
   </div>
-
  </div>
 </main>

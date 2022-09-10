@@ -1,0 +1,33 @@
+<main class="container">
+
+ <div class="row d-flex justify-content-end m-3">
+   <p><%= link_to "新規投稿", new_post_path %></p>
+ </div>
+ <div class="row justify-content-center m-3">
+   <h3>下書き一覧</h3>
+ </div>
+
+ <div class="search_form m-3 row justify-content-center">
+  <%= form_with url: search_confirm_path, local: true, method: :get do |f| %>
+  <%= f.text_field :search %>
+  <%= f.submit "検索", class: "btn btn-primary" %>
+  <% end %>
+ </div>
+
+ <div class="row justify-content-start m-3">
+  <% if !@posts.nil? %>
+   <% @posts.each do |post| %>
+   <div class="col-md-3">
+    <%= link_to post_path(post.id), class: "text-dark" do %>
+     <%= image_tag attachment_url(post, :picture), size: "200x150" %>
+    <% end %>
+    <p><%= post.content %></p>
+   </div>
+   <% end %>
+  <% end %>
+ </div>
+
+ <%= paginate @posts %>
+
+</main>
+

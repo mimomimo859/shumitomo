@@ -1,0 +1,4 @@
+<!--id="comments_areaにをrenderで指定した部分テンプレートに更新-->
+$("#comments_area").html("<%= j(render 'admin/comments/post_comments', post: @post) %>");
+<!--エラーメッセージ-->
+$('#flash-message').html("<%= j(render 'layouts/flash') %>");

@@ -25,7 +25,7 @@
     <tr>
     <tr>
      <td class="table-active">性別</td>
-     <td><%= current_end_user.sex %></td>
+     <td><%= current_end_user.sex_i18n %></td>
     <tr>
     <tr>
      <td class="table-active">自己紹介</td>
@@ -41,11 +41,17 @@
 
  <div class="row">
   <div class="col-md-3 m-3 d-flex justify-content-around">
+   <%= link_to "いいね一覧", likes_end_user_path(current_end_user) %>
+  </div>
+ </div>
+
+ <div class="row">
+  <div class="col-md-3 m-3 d-flex justify-content-around">
    <h5>投稿履歴</h5>
    （全<%= @posts.count %>件）
-  </div> 
+  </div>
  </div>
- 
+
  <div class="row">
   <% @posts.each do |post| %>
   <div class="col-md-3">
@@ -56,7 +62,5 @@
   </div>
   <% end %>
  </div>
- 
- 
 
 </main>

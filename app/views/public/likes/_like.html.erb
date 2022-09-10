@@ -1,0 +1,12 @@
+<% if current_end_user.already_liked?(@post) %>
+  <%# 一致するレコードが存在する＝すでにいいね済みの場合はdestroyアクションへ %>
+  <%= link_to post_likes_path(@post), method: :delete, remote: true do %>
+    <i class="fas fa-heart heart_red"></i>
+  <% end %>
+<% else %>
+  <%# 一致するレコードが存在しない＝まだいいねしていない場合はcreateアクションへ %>
+  <%= link_to post_likes_path(@post), method: :post, remote: true do %>
+    <i class="far fa-heart"></i>
+  <% end %>
+<% end %>
+<%= @post.liked_end_users.count %>

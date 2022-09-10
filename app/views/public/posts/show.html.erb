@@ -1,34 +1,50 @@
-<main class="container">
+<main>
  <div class="row">
-  <div class="col-lg-6 m-5">
-
+  <div class="col-lg-12 m-4">
    <div class="container">
-    <img src="sample.png" class="img-fluid" alt="">
+
      <%= image_tag attachment_url(@post, :picture), size: "widthxheight", class: "img-fluid" %>
 
-   <div class="m-5">
-    <%= @post.content %>
-   </div>
+     <%= link_to end_user_path(@post.end_user_id), class: "text-dark" do %>
+      <p><%= @post.end_user.name %>さん</p>
+     <% end %>
 
-   <div class="m-5">
-   <% if @post.liked?(current_end_user) %>
-    <%# 一致するレコードが存在する＝すでにいいね済みの場合はdestroyアクションへ %>
-    <%= link_to post_likes_path(@post.id), method: :delete do %>
-        <span style="color:red;">❤︎</span>
-    <% end %>
-   <% else %>
-    <%# 一致するレコードが存在しない＝まだいいねしていない場合はcreateアクションへ %>
-    <%= link_to post_likes_path(@post.id), method: :post do %>
-        <span>❤︎</span>
-    <% end %>
-   <% end %>
-   </div>
-   
-   <div class="m-5">
-    
-   </div> 
-  
+     <p><%= @post.content %></p>
+
+     <% @tags.each do |tag| %>
+      <p><%= tag.tag_name %></p>
+     <% end %>
+
+     <% if @post.end_user == current_end_user %>
+      <%= link_to "編集", edit_post_path(@post.id) %>
+      <%= link_to "削除", post_path, method: :delete, data: {confirm: "本当に削除しますか？"} %>
+     <% end %>
+
+    <div class="like">
+
+     <% if @post.end_user != current_end_user %>
+     <p>いいね件数：<%= @post.likes.count %></p>
+
+      <div id="like_<%= @post.id %>">
+       <%= render 'public/likes/like' %>
+      </div>
+
+     <% end %>
+
+    </div>
+
+    <div class="comments">
+     <p>コメント入力フォーム</p>
+     <!--部分テンプレート化-->
+     <!--コメントフォーム-->
+     <div class="new-comment">
+      <%= render 'public/comments/form', post: @post, comment: @comment %>
+     </div>
+     <!--コメント一覧部分-->
+     <div id="comments_area">
+      <%= render 'public/comments/post_comments', post: @post %>
+     </div>
+    </div>
   </div>
-
  </div>
 </main>

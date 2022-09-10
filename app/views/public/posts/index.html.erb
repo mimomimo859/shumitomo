@@ -1,22 +1,59 @@
 <main class="container">
 
- <div class="row">
-  <div class="col-12 m-3">
-   <%= link_to "新規投稿", new_post_path %>
+ <div class="row d-flex justify-content-end m-3">
+   <p><%= link_to "新規投稿", new_post_path %></p>
+ </div>
+ <div class="row justify-content-center m-3">
    <h3>投稿一覧</h3>
-  </div>
  </div>
 
- <div class="row">
-  <% @posts.each do |post| %>
-  <div class="col-md-3">
-   <%= link_to post_path(post.id), class: "text-dark" do %>
-    <%= image_tag attachment_url(post, :picture), size: "200x150" %>
-   <% end %>
-   <p><%= post.content %></p>
-  </div>
+ <div class="search_form m-3 row justify-content-center">
+  <%= form_with url: search_path, local: true, method: :get do |f| %>
+  <%= f.text_field :search %>
+  <%= f.submit "検索", class: "btn btn-primary" %>
   <% end %>
  </div>
+
+ <h4>投稿</h4>
+ <div class="row justify-content-start m-3">
+  <%#= 検索内容がpostだった時 %>
+  <% if !@posts.nil? %>
+   <% @posts.each do |post| %>
+   <div class="col-md-3">
+    <%= link_to post_path(post.id), class: "text-dark" do %>
+     <%= image_tag attachment_url(post, :picture), size: "200x150" %>
+    <% end %>
+    <p><%= post.content %></p>
+   </div>
+   <% end %>
+  <% end %>
+ </div>
+
+ <h4>タグ</h4>
+ <div class="row justify-content-start m-3">
+  <%#= 検索内容がtagだった時 %>
+  <% if !@tags.nil? %>
+   <% @tags.each do |tag| %>
+   <div class="col-md-3">
+    <p><%= tag.tag_name %></p>
+   </div>
+   <% end %>
+  <% end %>
+ </div>
+
+ <h4>ユーザー名</h4>
+ <div class="row justify-content-start m-3">
+  <%#= 検索内容がend_userだった時 %>
+  <% if !@end_users.nil? %>
+   <% @end_users.each do |end_user| %>
+   <div class="col-md-3">
+    <p><%= end_user.name %></p>
+   </div>
+   <% end %>
+  <% end %>
+ </div>
+
+ <%= paginate @posts %>
 
 </main>
 

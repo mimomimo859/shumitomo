@@ -35,4 +35,10 @@ https://docs.google.com/spreadsheets/d/1h6oKaONaZGWROdaIuqoQ_ZwvCNaFrwSqa8CuK1L5
 - IDE：Cloud9
 
 ## 使用素材
-- 使用検討中
+- Font Awesome
+- devise
+- refile
+- refile-mini_magick
+- image_processing
+- kaminari
+- jquery-rails

@@ -15,9 +15,10 @@ class Public::EndUsersController < ApplicationController
 
   def show
    @end_user = EndUser.find(params[:id])
+   @posts = Post.where(end_user_id: @end_user.id)
   end
 
-  def profile
+  def my_profile
    @posts = Post.where(end_user_id: current_end_user.id)
   end
 
@@ -34,6 +35,14 @@ class Public::EndUsersController < ApplicationController
    flash[:notice] = "退会処理を実行いたしました"
    #退会後は、トップ画面に遷移します
    redirect_to root_path
+  end
+
+  def likes
+    # ログイン中のユーザーとユーザーidが等しい「いいねのレコード」を全て取得
+    @end_user = EndUser.find(params[:id])
+    # そして、そのいいねに紐づくpost_idも一緒に持ってくる
+    likes = Like.where(end_user_id: @end_user.id).pluck(:post_id)
+    @like_posts = Post.find(likes)
   end
 
   private

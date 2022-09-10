@@ -1,0 +1,16 @@
+<main class="container">
+<div class="row d-flex justify-content-center">
+ <div class="col-8 m-5">
+  <h5 class="text-center">本当に退会しますか？</h5>
+  <p class="text-center p-1">退会すると、投稿内容や</p>
+  <p class="text-center p-1">これまでのいいね履歴が閲覧できなくなります。</p>
+  <p class="text-center p-1">退会する場合は、「退会する」をクリックしてください。</p>
+ </div>
+</div>
+<div class="row d-flex justify-content-center">
+ <div class="col-5 m-3 d-flex justify-content-center">
+  <p class="m-3"><%= link_to '退会しない', root_path, class: 'btn btn-primary btn-sm' %></p>
+  <p class="m-3"><%= link_to '退会する', withdraw_path, method: :patch, "data-confirm" => "本当に退会しますか？", class: 'btn btn-danger btn-sm' %></p>
+ </div>
+</div>
+</main>

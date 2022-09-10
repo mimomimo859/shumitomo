@@ -1,35 +1,38 @@
 <main class="container">
  <div class="row">
-  <div class="col-12 d-flex justify-content-between">
+  <div class="col-12">
    <h4 class="m-5">会員一覧</h4>
   </div>
-
-  <div class="col-12 d-flex justify-content-between">
-   <table class="table">
+ 
+ <div class="col-12 m-3 d-flex justify-content-start">
+  <table class="table">
    <thead class="table-active">
-    <th>会員ID</th>
-    <th>氏名</th>
-    <th>メールアドレス</th>
-    <th>ステータス</th>
+     <th>会員ID</th>
+     <th>氏名</th>
+     <th>メールアドレス</th>
+     <th>ステータス</th>
    </thead>
    <tbody>
-    <% @end_users.each do |end_user| %>
-    <td><%= end_user.id %></td>
-    <td>
-     <%= link_to admin_end_user_path(end_user.id), class: "text-dark" do %>
-      <%= end_user.name %>
-     <% end %>
-    </td>
-    <td><%= end_user.email %></td>
-    <td>
-     <% if end_user.is_deleted %>
-     <p class="text-muted">退会</p>
-     <% else %>
-     <p class="text-success">有効</p>
-     <% end %>
-   </td>
-   </tbody>
+   <% @end_users.each do |end_user| %>
+    <tr>
+     <td><%= end_user.id %></td>
+     <td>
+      <%= link_to admin_end_user_path(end_user.id), class: "text-dark" do %>
+       <%= end_user.name %>
+      <% end %>
+     </td>
+     <td><%= end_user.email %></td>
+     <td>
+      <% if end_user.is_deleted %>
+        <p class="text-muted">退会</p>
+      <% else %>
+        <p class="text-success">有効</p>
+      <% end %>
+     </td>
+    </tr>
    <% end %>
-  </div>
+   </tbody>
+  </table>
  </div>
+ 
 </main>
