@@ -1,0 +1,22 @@
+<div class="cover-user-index">
+  <div class="container">
+    <div class="row justify-content-center">
+      <h1 class="font-weight-normal mt-5 mb-5">フォロー一覧</h1>
+    </div>
+    <div class="row justify-content-center">
+      <% @end_users.each do |end_user| %>
+      <div class="one-post card w-100 p-3">
+        <%= link_to end_user_path(end_user) do %>
+        <p class="caption h5"><%= end_user.name %></p>
+        <div class="d-flex">
+          <%= image_tag end_user.get_profile_image, size: '50x50', fallback: "no_image.png", class: "mb-3 mt-3 ml-3 profile-img" %>
+          <h4 class="ml-5"><%= end_user.self_introduction %></h4>
+        </div>
+        <p class="caption"><%= "#{end_user.posts.count} 投稿" %></p>
+        <% end %>
+      </div>
+      <% end %>
+    </div>
+    <%= paginate @end_users %>
+  </div>
+</div>

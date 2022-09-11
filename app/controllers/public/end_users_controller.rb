@@ -16,6 +16,8 @@ class Public::EndUsersController < ApplicationController
   def show
    @end_user = EndUser.find(params[:id])
    @posts = Post.where(end_user_id: @end_user.id)
+   @following_end_users = @end_user.following_end_user
+   @follower_end_users = @end_user.follower_end_user
   end
 
   def my_profile
@@ -24,6 +26,16 @@ class Public::EndUsersController < ApplicationController
 
   def unsubscribe
 
+  end
+
+  def follows
+   end_user = EndUser.find(params[:id])
+   @end_users = end_user.following_end_user.page(params[:page]).per(3).reverse_order
+  end
+
+  def followers
+   end_user = EndUser.find(params[:id])
+   @end_users = end_user.follower_end_user.page(params[:page]).per(3).reverse_order
   end
 
   def withdraw
@@ -35,6 +47,10 @@ class Public::EndUsersController < ApplicationController
    flash[:notice] = "退会処理を実行いたしました"
    #退会後は、トップ画面に遷移します
    redirect_to root_path
+  end
+
+  def matchers
+   @matchers = EndUser.matching(current_end_user)
   end
 
   def likes

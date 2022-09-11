@@ -29,11 +29,19 @@ class EndUser < ApplicationRecord
   has_many :posts, dependent: :destroy
   has_many :liked_posts, through: :likes, source: :post
 
+  # following_end_user:中間テーブルを通してfollowedモデルのフォローされる側を取得すること
+  has_many :follower, class_name: "Relationship", foreign_key: "follower_id", dependent: :destroy
+  # follower_end_user:中間テーブルを通してfollowerモデルのフォローする側を取得すること
+  has_many :followed, class_name: "Relationship", foreign_key: "followed_id", dependent: :destroy
+  has_many :following_end_user, through: :follower, source: :followed # 自分がフォローしている人
+  has_many :follower_end_user, through: :followed, source: :follower # 自分をフォローしている人
+
+
   #ユーザーが投稿に対して既にいいねしているか判定する
   def already_liked?(post)
     likes.exists?(post_id: post.id)
   end
-  
+
   # タグとユーザーと投稿記事をまとめて曖昧検索する
   def self.search(search)
     if search != nil
@@ -42,5 +50,25 @@ class EndUser < ApplicationRecord
       EndUser.all
     end
   end
-  
+
+  # ユーザーをフォローする
+  def follow(end_user_id)
+    follower.create(followed_id: end_user_id)
+  end
+
+  # ユーザーのフォローを外す
+  def unfollow(end_user_id)
+    follower.find_by(followed_id: end_user_id).destroy
+  end
+
+  # フォローしていればtrueを返す
+  def following?(end_user)
+    following_end_user.include?(end_user)
+  end
+
+  # お互いにフォローしている
+  def matching(end_user)
+   following & followers
+  end
+
 end

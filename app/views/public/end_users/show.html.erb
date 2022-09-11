@@ -1,6 +1,6 @@
 <main class="container">
  <div class="row">
-  <div class="col-md-3  d-flex justify-content-around">
+  <div class="col-md-3 d-flex justify-content-around">
   <h5 class="m-5">プロフィール</h5>
   </div>
  </div>
@@ -36,6 +36,33 @@
     <tr>
    <tbody>
   </table>
+ </div>
+
+ <div class="row justify-content-end">
+  <div class="col-md-3 d-flex">
+   <%# アクセスユーザーと表示しているページのユーザー違うとき下記を表示 %>
+   <% if current_end_user != @end_user %>
+    <%# アクセスユーザーが表示しているページのユーザーを既にフォローしているか判定 %>
+    <% if current_end_user.following?(@end_user) %>
+     <%# 既にフォローしている %>
+     <%= link_to 'フォロー外す', end_user_relationships_path(@end_user.id), method: :delete, class: "btn-sm btn-danger" %>
+    <% else %>
+     <%# まだフォローしていない %>
+     <%= link_to 'フォローする', end_user_relationships_path(@end_user.id), method: :POST, class:"btn-sm btn-success" %>
+    <% end %>
+   <% end %>
+  </div>
+ </div>
+
+ <div class="row justify-content-end">
+   <div class="d-flex m-3">
+    <%= link_to follows_end_user_path(@end_user) do %>
+    <h6>フォロー<%= @following_end_users.count %></h6>
+    <% end %>&nbsp;&nbsp;
+    <%= link_to followers_end_user_path(@end_user) do %>
+    <h6>フォロワー<%= @follower_end_users.count %></h6>
+    <% end %>
+   </div>
  </div>
 
  <div class="row">

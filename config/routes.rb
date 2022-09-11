@@ -21,24 +21,33 @@ Rails.application.routes.draw do
   get "search" => "searches#search", as: 'search'
   get "search_confirm" => "searches#search_confirm", as: 'search_confirm'
 
+
+
   scope module: :public do
+   root to: "homes#top"
+   get 'homes/about' => 'homes#about', as: 'about'
+   get 'end_user/my_profile' => 'end_users#my_profile', as: 'my_profile'
+   get 'end_user/unsubscribe' => 'end_users#unsubscribe', as: 'unsubscribe'
+   patch 'end_user/withdraw' => 'end_users#withdraw', as: 'withdraw'
+
    resources :posts do
     resource :likes, only: [:create, :destroy]
     resources :comments, only: [:create, :destroy]
     collection do
-    get 'confirm'
+     get 'confirm'
     end
    end
-   get 'end_user/my_profile' => 'end_users#my_profile', as: 'my_profile'
-   get 'end_user/unsubscribe' => 'end_users#unsubscribe', as: 'unsubscribe'
-   patch 'end_user/withdraw' => 'end_users#withdraw', as: 'withdraw'
+
    resources :end_users, only: [:update, :create, :edit, :show] do
+    member do
+     get :follows, :followers
+    end
+    resource :relationships, only: [:create, :destroy]
     member do
      get :likes
     end
    end
-   root to: "homes#top"
-   get 'homes/about' => 'homes#about', as: 'about'
+
   end
 
   namespace :admin do
