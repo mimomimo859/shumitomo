@@ -45,7 +45,7 @@
     <%# アクセスユーザーが表示しているページのユーザーを既にフォローしているか判定 %>
     <% if current_end_user.following?(@end_user) %>
      <%# 既にフォローしている %>
-     <%= link_to 'フォロー外す', end_user_relationships_path(@end_user.id), method: :delete, class: "btn-sm btn-danger" %>
+     <%= link_to 'フォロー外す', end_user_relationship_path(@end_user.id), method: :delete, class: "btn-sm btn-danger" %>
     <% else %>
      <%# まだフォローしていない %>
      <%= link_to 'フォローする', end_user_relationships_path(@end_user.id), method: :POST, class:"btn-sm btn-success" %>

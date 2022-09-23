@@ -3,7 +3,7 @@ class Public::EndUsersController < ApplicationController
   def update
    @end_user = EndUser.find(params[:id])
     if @end_user.update(current_end_user_params)
-       redirect_to profile_path(current_end_user.id)
+       redirect_to my_profile_path(current_end_user.id)
     else
        render :update
     end
@@ -47,10 +47,6 @@ class Public::EndUsersController < ApplicationController
    flash[:notice] = "退会処理を実行いたしました"
    #退会後は、トップ画面に遷移します
    redirect_to root_path
-  end
-
-  def matchers
-   @matchers = EndUser.matching(current_end_user)
   end
 
   def likes

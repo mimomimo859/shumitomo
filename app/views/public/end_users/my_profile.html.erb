@@ -1,19 +1,19 @@
 <main class="container">
  <div class="row">
-  <div class="col-md-3  d-flex justify-content-around">
-  <h5 class="m-5">プロフィール</h5>
-  <%= link_to "マッチング一覧", edit_end_user_path(current_end_user.id), class: 'btn btn-success btn-sm' %>
+  <div class="col-md-12  d-flex justify-content-start m-5">
+  <h5>プロフィール</h5>
+  <span class="ml-5"><%= link_to "マッチング一覧", end_user_relationships_path(current_end_user.id), class: 'btn btn-success btn-sm' %></span>
   </div>
  </div>
 
  <div class="row">
-  <div class="col-md-3 m-3 d-flex justify-content-around">
+  <div class="col-md-12 m-3 d-flex justify-content-start">
    <h5>登録情報</h5>
-   <%= link_to "編集する", edit_end_user_path(current_end_user.id), class: 'btn btn-success btn-sm' %>
+   <span class="ml-5"><%= link_to "編集する", edit_end_user_path(current_end_user.id), class: 'btn btn-success btn-sm' %></span>
   </div>
  </div>
 
- <div class="col-md-8 m-3">
+ <div class="col-md-12 m-3">
   <table class="table table-bordered">
    <tbody>
     <tr>

@@ -38,11 +38,14 @@ Rails.application.routes.draw do
     end
    end
 
+   resources :rooms, only: [:create, :show]
+   resources :chats, only: [:create]
+
    resources :end_users, only: [:update, :create, :edit, :show] do
     member do
      get :follows, :followers
     end
-    resource :relationships, only: [:create, :destroy]
+    resources :relationships, only: [:create, :destroy, :index]
     member do
      get :likes
     end

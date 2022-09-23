@@ -10,4 +10,8 @@ class Public::RelationshipsController < ApplicationController
   redirect_to request.referer
  end
 
+ def index
+  @end_users = current_end_user.matching
+ end
+
 end

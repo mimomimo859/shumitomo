@@ -28,14 +28,17 @@ class EndUser < ApplicationRecord
   has_many :likes, dependent: :destroy
   has_many :posts, dependent: :destroy
   has_many :liked_posts, through: :likes, source: :post
+  has_many :end_user_rooms
+  has_many :rooms, through: :end_user_rooms
+  has_many :chats, dependent: :destroy
+
+  has_many :follower, class_name: "Relationship", foreign_key: "follower_id", dependent: :destroy
+  has_many :followed, class_name: "Relationship", foreign_key: "followed_id", dependent: :destroy
 
   # following_end_user:中間テーブルを通してfollowedモデルのフォローされる側を取得すること
-  has_many :follower, class_name: "Relationship", foreign_key: "follower_id", dependent: :destroy
-  # follower_end_user:中間テーブルを通してfollowerモデルのフォローする側を取得すること
-  has_many :followed, class_name: "Relationship", foreign_key: "followed_id", dependent: :destroy
   has_many :following_end_user, through: :follower, source: :followed # 自分がフォローしている人
+  # follower_end_user:中間テーブルを通してfollowerモデルのフォローする側を取得すること
   has_many :follower_end_user, through: :followed, source: :follower # 自分をフォローしている人
-
 
   #ユーザーが投稿に対して既にいいねしているか判定する
   def already_liked?(post)
@@ -67,8 +70,8 @@ class EndUser < ApplicationRecord
   end
 
   # お互いにフォローしている
-  def matching(end_user)
-   following & followers
+  def matching
+   following_end_user & follower_end_user
   end
 
 end

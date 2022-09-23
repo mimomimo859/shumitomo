@@ -1,0 +1,24 @@
+<main class="container">
+
+ <div class="row">
+  <div class="col-md-3  d-flex justify-content-around">
+   <h5 class="m-5">マッチング一覧</h5>
+  </div>
+ </div>
+
+ <div class="row">
+
+  <div class="col-md-8 m-3">
+    <% @end_users.each do |end_user| %>
+    <%= link_to rooms_path(partner_id: end_user.id), method: :post do %>
+     <%= image_tag end_user.get_profile_image %>
+    <% end %>
+     <%= end_user.name %>
+     <%= end_user.sex_i18n %>
+     <%= end_user.self_introduction %>
+    <% end %>
+  </div>
+
+ </div>
+
+</main>
