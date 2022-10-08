@@ -1,7 +1,6 @@
 class Public::RoomsController < ApplicationController
 
   def create
-    
     current_end_user_room_id = 0
     current_end_user_rooms = EndUserRoom.where(end_user_id: current_end_user.id)
     current_end_user_rooms.each do |current_end_user_room|

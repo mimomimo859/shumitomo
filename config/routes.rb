@@ -38,6 +38,14 @@ Rails.application.routes.draw do
     end
    end
 
+   resources :themas, only: [:update, :create, :edit, :index, :destroy, :new] do
+    member do
+     post 'participant' => 'participants#participant', as: 'participant'
+     patch 'unparticipant' => 'participants#unparticipant', as: 'unparticipant'
+     patch 'rejoin' => 'participants#rejoin', as: 'rejoin'
+    end
+   end
+
    resources :rooms, only: [:create, :show]
    resources :chats, only: [:create]
 

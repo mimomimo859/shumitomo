@@ -31,6 +31,10 @@ class EndUser < ApplicationRecord
   has_many :end_user_rooms
   has_many :rooms, through: :end_user_rooms
   has_many :chats, dependent: :destroy
+  has_many :end_user_themas
+  has_many :themas, through: :end_user_themas
+  has_many :participants
+  has_many :themas, through: :participants
 
   has_many :follower, class_name: "Relationship", foreign_key: "follower_id", dependent: :destroy
   has_many :followed, class_name: "Relationship", foreign_key: "followed_id", dependent: :destroy
@@ -69,7 +73,7 @@ class EndUser < ApplicationRecord
     following_end_user.include?(end_user)
   end
 
-  # お互いにフォローしている
+  # お互いにフォローしているか判定
   def matching
    following_end_user & follower_end_user
   end

@@ -1,0 +1,132 @@
+<main class="container">
+  <div class="row d-flex justify-content-end m-3">
+   <p><%= link_to "新規投稿", new_thema_path %></p>
+  </div>
+
+ <div class="row justify-content-center m-3">
+   <h3>お題一覧</h3>
+ </div>
+
+ <div class="row justify-content-start m-3">
+   <% @themas.each do |thema| %>
+    <div class="col-md-12">
+      <p><%= thema.thema %></p>
+      <p><%= thema.explanation %></p>
+      <p><%= thema.limit.strftime("%Y年 %m月 %d日") %></p>
+      <%# アクセスユーザーがお題に既に参加しているか判定 %>
+      <% participant = current_end_user.participants.find_by(thema_id: thema.id) %>
+      <% if participant == nil %>
+        <%# まだ一度も参加していない %>
+        <%= link_to '参加する', participant_thema_path(thema.id), method: :post, class: "btn-sm btn-success" %>
+      <% elsif participant.status == false %>
+        <%# 一度参加したが参加を取りやめた %>
+        <%= link_to '参加する', rejoin_thema_path(thema.id), method: :patch, class: "btn-sm btn-success" %>
+      <% else %>
+        <%# 既に参加している %>
+        <%= link_to '参加を取り消す', unparticipant_thema_path(thema.id), method: :patch, class: "btn-sm btn-danger" %>
+      <% end %>
+
+       <%# アクセスユーザーとお題作成者が同じ時に下記を表示%>
+      <% if thema.end_users && current_end_user %>
+       <%= link_to "編集", edit_thema_path(thema.id) %>
+       <%= link_to "削除", thema_path(thema.id), method: :delete, data: {confirm: "本当に削除しますか？"} %>
+      <% end %>
+
+     <br>
+        <input type="hidden" id="userYear" value = "<%= thema.limit.year %>"  >
+        <input type="hidden" id="userMonth"value = "<%= thema.limit.month %>" >
+        <input type="hidden" id="userDate" value = "<%= thema.limit.day %>" >
+        <input type="hidden" id="userHour" value = "<%= thema.limit.hour %>" >
+        <input type="hidden" id="userMin"  value = "<%= thema.limit.min %>" >
+        <input type="hidden" id="userSec"  value = "<%= thema.limit.sec %>" >
+      </p>
+      <p id="RealtimeCountdownArea" ></p>
+
+      <script>
+
+
+
+      function set2fig(num) {
+         // 数値が1桁だったら2桁の文字列にして返す
+         var ret;
+         if( num < 10 ) { ret = "0" + num; }
+         else { ret = num; }
+         return ret;
+      }
+      function isNumOrZero(num) {
+         // 数値でなかったら0にして返す
+         if( isNaN(num) ) { return 0; }
+         return num;
+      }
+      function showCountdown() {
+         // 現在日時を数値(1970-01-01 00:00:00からのミリ秒)に変換
+         var nowDate = new Date();
+         var dnumNow = nowDate.getTime();
+
+         // 指定日時を数値(例: 1970-01-01 00:00:00からのミリ秒)に変換
+         var inputYear  = document.getElementById("userYear").value;
+         var inputMonth = document.getElementById("userMonth").value - 1;
+         var inputDate  = document.getElementById("userDate").value;
+         var inputHour  = document.getElementById("userHour").value;
+         var inputMin   = document.getElementById("userMin").value;
+         var inputSec   = document.getElementById("userSec").value;
+         var targetDate = new Date( isNumOrZero(inputYear), isNumOrZero(inputMonth), isNumOrZero(inputDate), isNumOrZero(inputHour), isNumOrZero(inputMin), isNumOrZero(inputSec) );
+         var dnumTarget = targetDate.getTime();
+
+         // 引き算して日数(ミリ秒)の差を計算
+         var diff2Dates = dnumTarget - dnumNow;
+         if( dnumTarget < dnumNow ) {
+            // 期限が過ぎた場合は -1 を掛けて正の値に変換
+            diff2Dates *= -1;
+         }
+
+         // 差のミリ秒を、日数・時間・分・秒に分割
+         var dDays  = diff2Dates / ( 1000 * 60 * 60 * 24 );   // 日数
+         diff2Dates = diff2Dates % ( 1000 * 60 * 60 * 24 );
+         var dHour  = diff2Dates / ( 1000 * 60 * 60 );   // 時間
+         diff2Dates = diff2Dates % ( 1000 * 60 * 60 );
+         var dMin   = diff2Dates / ( 1000 * 60 );   // 分
+         diff2Dates = diff2Dates % ( 1000 * 60 );
+         var dSec   = diff2Dates / 1000;   // 秒
+         var msg2 = Math.floor(dDays) + "日"
+                  + Math.floor(dHour) + "時間"
+                  + Math.floor(dMin) + "分"
+                  + Math.floor(dSec) + "秒";
+
+         // 表示文字列の作成
+         var msg;
+
+            msg =  "締切まで、あと" + msg2 ;
+
+         // 作成した文字列を表示
+         document.getElementById("RealtimeCountdownArea").innerHTML = msg;
+         document.getElementById("deadline.id").value =  targetDate;
+
+      }
+      // 1秒ごとに実行
+      setInterval('showCountdown()',1000);
+
+      </script>
+
+
+    </div>
+ </div>
+
+ <div class="row justify-content-start m-3">
+    <div class="col-md-12">
+      <p>参加者</p>
+      <% menbers = Participant.where(status: true, thema_id: thema.id) %>
+      <% menbers.last(15).each do |menber| %>
+       <%= image_tag menber.end_user.get_profile_image, size: "75x25" %>
+      <% end %>
+    </div>
+ </div>
+
+  <% end %>
+
+ <%= paginate @themas %>
+
+</main>
+
+
+

@@ -69,3 +69,9 @@ gem 'kaminari'
 gem 'jquery-rails'
 # enum機能
 gem 'enum_help' 
+# バッヂ処理の自動化機能
+gem 'whenever', require: false
+# 出力結果を表として出力するgem
+gem 'hirb'    
+# マルチバイト文字の表示を補正するgem
+gem 'hirb-unicode'  

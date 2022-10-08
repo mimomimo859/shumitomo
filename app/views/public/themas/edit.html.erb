@@ -1,0 +1,39 @@
+<div class="row">
+  <div class="col-lg-12">
+   <div class="container m-5">
+    <h4 class="m-4">お題編集</h4>
+
+    <%= form_with model: @thema, url: thema_path  do |f| %>
+
+    <table>
+     <tr>
+      <td><p class="m-4"><%= f.label :thema, "お題" %></p></td>
+      <td><%= f.text_field :thema, class: 'form-control', size: "20x10" %></td>
+     </tr>
+     <tr>
+      <td><p class="m-4"><%= f.label :explanation, "説明" %></p></td>
+      <td>
+       <%=f.text_area :explanation, placeholder: "お題についての説明、投稿時につけるタグ名などを記載してください。", size: "40x7"%>
+      </td>
+     </tr>
+     <tr>
+      <td><p class="m-4"><%= f.label :limit, "締切", class: 'control-label' %></p></td>
+      <td>
+      <div class="form-group">
+        <%= f.date_field :limit, class: 'form-control' %>
+      </div>
+      </td>
+     </tr>
+     <tr>
+      <td></td>
+      <td>
+        <%= f.submit '編集', class: 'btn btn-success btn-sm' %>
+      </td>
+     </tr>
+    </table>
+
+    <% end %>
+
+   </div>
+  </div>
+ </div>

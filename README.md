@@ -37,8 +37,14 @@ https://docs.google.com/spreadsheets/d/1h6oKaONaZGWROdaIuqoQ_ZwvCNaFrwSqa8CuK1L5
 ## 使用素材
 - Font Awesome
 - devise
+- devise-i18n
+- rails-i18n
 - refile
 - refile-mini_magick
 - image_processing
 - kaminari
 - jquery-rails
+- whenever
+- enum_help
+- hirb
+- hirb-unicode
