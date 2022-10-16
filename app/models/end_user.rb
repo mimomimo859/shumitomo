@@ -31,8 +31,7 @@ class EndUser < ApplicationRecord
   has_many :end_user_rooms
   has_many :rooms, through: :end_user_rooms
   has_many :chats, dependent: :destroy
-  has_many :end_user_themas
-  has_many :themas, through: :end_user_themas
+  has_many :themas
   has_many :participants
   has_many :themas, through: :participants
 

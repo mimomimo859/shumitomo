@@ -1,0 +1,22 @@
+<%#= form_with model:[chat, comment] do |f| %>
+
+
+  <%#= f.text_area :chat, rows:'5',placeholder: "コメントをここに" %>
+  <%#= f.hidden_field :chat_id, :value => @chat.id %>
+  <%#= f.submit "送信する" %>
+<%# end %>
+
+<%= form_with model: @chat, local: false do |f| %>
+<!--エラーメッセージ-->
+ <div class="row d-flex justify-content-center m-4">
+  <div id="chats-error">
+   <%= render 'layouts/error_messages', model: f.object %>
+  </div>
+    <%= f.hidden_field :end_user_id, value: current_end_user.id %>
+    <%= f.hidden_field :room_id, value: @room.id %>
+
+     <%= f.text_area :message,placeholder: "メッセージをここに",size: "40x5" %>
+ </div>
+ <span class="d-flex justify-content-center m-3"><%= f.submit "送信する" %></span>
+
+<% end %>

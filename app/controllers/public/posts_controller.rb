@@ -1,4 +1,5 @@
 class Public::PostsController < ApplicationController
+before_action :authenticate_end_user!, except: [:index]
 
   def new
    # 空のitem_paramsを@itemに代入する
@@ -84,12 +85,12 @@ class Public::PostsController < ApplicationController
   def confirm
   @posts = current_end_user.posts.draft.page(params[:page]).reverse_order
    # 検索フォームに入力があった場合
-   if params[:search].present?
-      posts = Post.posts_serach_confirm(params[:search])
+   if params[:search_confirm].present?
+      @posts = Post.posts_serach_confirm(params[:search_confirm])
    # 普通にページを表示させた場合
-   else
+   #else
     # 作成された日時を降順に並び替えて表示する（新着順）
-      posts = Post.published.order(created_at: :desc)
+      #@posts = Post.draft.order(created_at: :desc)
    end
   end
 

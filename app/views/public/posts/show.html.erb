@@ -23,7 +23,7 @@
     <div class="like">
 
      <% if @post.end_user != current_end_user %>
-     <p>いいね件数：<%= @post.likes.count %></p>
+     
 
       <div id="like_<%= @post.id %>">
        <%= render 'public/likes/like' %>

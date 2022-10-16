@@ -1,28 +1,11 @@
-<% @chat_message.each do |chat_message| %>
- <% if chat_message.end_user_id == current_end_user %>
- <div class="row" >
-  <div class="col-md-3  d-flex justify-content-start">
-    <%= image_tag chat_message.end_user.get_profile_image, size: '50x50', fallback: "no_image.png", class: "mb-3 mt-3 ml-3 profile-img" %>
-    <div class="balloon1-left">
-     <%= chat_message.message %>
-    </div>
+<div class="chats">
+  <!--コメント一覧部分-->
+   <div id="chats_area">
+    <%= render 'public/chats/chats', chat: @chat %>
+   </div>
+  <!--部分テンプレート化-->
+  <!--コメントフォーム-->
+  <div class="new-chat">
+   <%= render 'public/chats/form', chat: @chat %>
   </div>
- </div>
- <% else %>
- <div class="row" >
-  <div class="col-md-3  d-flex justify-content-end">
-    <%= image_tag chat_message.end_user.get_profile_image, size: '50x50', fallback: "no_image.png", class: "mb-3 mt-3 ml-3 profile-img" %>
-    <div class="balloon1-right">
-     <%= chat_message.message %>
-    </div>
-  </div>
- </div>
- <% end %>
-<% end %>
-
-<%= form_with model: @chat do |f| %>
-    <%= f.hidden_field :end_user_id, value: current_end_user.id %>
-    <%= f.hidden_field :room_id, value: @room.id %>
-    <%= f.text_area :message %>
-    <%= f.submit %>
-<% end %>
+</div>

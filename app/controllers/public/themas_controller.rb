@@ -18,7 +18,6 @@ class Public::ThemasController < ApplicationController
   def create
     @thema = Thema.new(thema_params)
     @thema.save
-    EndUserThema.create(end_user_id: current_end_user.id, thema_id: @thema.id)
     redirect_to themas_path
   end
 
@@ -51,6 +50,6 @@ class Public::ThemasController < ApplicationController
   private
 
   def thema_params
-    params.require(:thema).permit(:explanation, :limit, :thema)
+    params.require(:thema).permit(:explanation, :limit, :thema, :end_user_id)
   end
 end

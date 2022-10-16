@@ -27,7 +27,7 @@
 
     <p class="mt-4"><%= f.select :status, Post.statuses.keys.map { |k| [t("enums.post.status.#{k}"),k]}, {}, {class: "custom-select w-5"} %></p>
 
-    <p class="m-5 text-center"><%= f.submit '変更を保存', class: 'btn btn-success btn-sm' %></p>
+    <p class="m-5 text-center"><%= f.submit '変更を保存', method: :patch, class: 'btn btn-success btn-sm' %></p>
 
     <%= f.hidden_field :end_user_id, :value => current_end_user.id %>
 

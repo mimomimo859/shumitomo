@@ -1,0 +1,17 @@
+<% @chat_message.each do |chat_message| %>
+ <% if chat_message.end_user_id != current_end_user.id %>
+  <div class="row d-flex justify-content-start m-4">
+    <%= image_tag chat_message.end_user.get_profile_image, size: '50x50', fallback: "no_image.png", class: "mb-3 mt-3 ml-3 profile-img" %>
+   <div class="balloon1-left m-3">
+     <%= chat_message.message %>
+   </div>
+  </div>
+ <% else %>
+  <div class="row d-flex justify-content-end m-4">
+   <div class="balloon1-right m-3">
+     <%= chat_message.message %>
+   </div>
+    <%= image_tag chat_message.end_user.get_profile_image, size: '50x50', fallback: "no_image.png", class: "mb-3 mt-3 ml-3 profile-img" %>
+  </div>
+ <% end %>
+<% end %>

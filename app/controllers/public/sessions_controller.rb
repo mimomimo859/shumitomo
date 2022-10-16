@@ -5,14 +5,10 @@ class Public::SessionsController < Devise::SessionsController
   #ただし、createアクションは除く
   before_action :end_user_state, only: [:create]
 
-  def after_sign_in_path_for(resource)
-    root_path
-  end
-
   def guest_sign_in
     end_user = EndUser.guest_sign_in
     sign_in end_user
-    redirect_to root_path, notice: 'ゲストユーザーとしてログインしました。'
+    redirect_to my_profile_path, notice: 'ゲストユーザーとしてログインしました。'
   end
 
   # before_action :configure_sign_in_params, only: [:create]

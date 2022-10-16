@@ -22,7 +22,7 @@ class SearchesController < ApplicationController
   end
 
   def search_confirm
-   @posts = Post.published.search(params[:search]).order('created_at DESC').page(params[:page])
+   @posts = Post.where(status: 'draft', end_user_id: current_end_user.id).where("content LIKE ?", "%#{params[:search_confirm]}%").order('created_at DESC').page(params[:page])
    render template: "public/posts/confirm"
   end
 

@@ -8,7 +8,7 @@ class Post < ApplicationRecord
   has_many :liked_end_users, through: :likes, source: :end_user
 
   enum status: { published: 0, draft: 1 }
-  
+
   attachment :picture
 
   # ログインユーザーが既にいいねしているかどうか判定する
@@ -52,5 +52,6 @@ class Post < ApplicationRecord
       Post.all
     end
   end
+
 
 end
