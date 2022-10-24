@@ -48,3 +48,4 @@ https://docs.google.com/spreadsheets/d/1h6oKaONaZGWROdaIuqoQ_ZwvCNaFrwSqa8CuK1L5
 - enum_help
 - hirb
 - hirb-unicode
+- イラスト：Loose Drawing
