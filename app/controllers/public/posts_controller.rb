@@ -1,5 +1,5 @@
 class Public::PostsController < ApplicationController
-before_action :authenticate_end_user!, except: [:index]
+before_action :prevent_url, only: [:edit, :update, :destroy]
 
   def new
    # 空のitem_paramsを@itemに代入する
@@ -103,6 +103,13 @@ before_action :authenticate_end_user!, except: [:index]
    # require(:モデル名)の意味は、「登録するのはどのテーブルなのか？」ということ
    # permitで保存するカラム名を選択する
    params.require(:post).permit(:end_user_id, :content, :picture, :status)
+  end
+
+  def prevent_url
+   @post = Post.find(params[:id])
+    if @post.end_user_id != current_end_user.id
+      redirect_to root_path
+    end
   end
 
 end

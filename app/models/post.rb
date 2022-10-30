@@ -6,6 +6,10 @@ class Post < ApplicationRecord
   has_many :post_tags, dependent: :destroy
   has_many :tags, through: :post_tags
   has_many :liked_end_users, through: :likes, source: :end_user
+  validates :end_user_id, presence: true
+  validates :content, presence: true
+  validates :picture, presence: true
+  validates :status, presence: true
 
   enum status: { published: 0, draft: 1 }
 

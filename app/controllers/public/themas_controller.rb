@@ -1,4 +1,5 @@
 class Public::ThemasController < ApplicationController
+before_action :prevent_url, only: [:edit, :update, :destroy]
 
   def new
     @thema = Thema.new
@@ -52,4 +53,12 @@ class Public::ThemasController < ApplicationController
   def thema_params
     params.require(:thema).permit(:explanation, :limit, :thema, :end_user_id)
   end
+
+  def prevent_url
+   @thema = Thema.find(params[:id])
+    if @thema.end_user_id != current_end_user.id
+      redirect_to root_path
+    end
+  end
+
 end

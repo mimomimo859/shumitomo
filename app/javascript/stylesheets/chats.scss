@@ -8,9 +8,10 @@
   padding: 7px 10px;
   min-width: 120px;
   max-width: 100%;
-  color: #555;
+  color: #fff;
   font-size: 16px;
-  background: #e0edff;
+  background: #00947a;
+  border-radius: 10px;
 }
 
 .balloon1-left:before {
@@ -20,7 +21,7 @@
   left: -30px;
   margin-top: -15px;
   border: 15px solid transparent;
-  border-right: 15px solid #e0edff;
+  border-right: 15px solid #00947a;
 }
 
 .balloon1-left p {
@@ -35,9 +36,10 @@
   padding: 7px 10px;
   min-width: 120px;
   max-width: 100%;
-  color: #555;
+  color: #fff;
   font-size: 16px;
-  background: #e0edff;
+  background: #00947a;
+  border-radius: 10px;
 }
 
 .balloon1-right:before {
@@ -47,7 +49,7 @@
   left: 100%;
   margin-top: -15px;
   border: 15px solid transparent;
-  border-left: 15px solid #e0edff;
+  border-left: 15px solid #00947a;
 }
 
 .balloon1-right p {

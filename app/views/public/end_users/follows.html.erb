@@ -1,7 +1,10 @@
 <div class="cover-user-index">
-  <div class="container">
+  <div class="container m-5">
     <div class="row justify-content-center">
-      <h1 class="font-weight-normal mt-5 mb-5">フォロー一覧</h1>
+      <h3 class="text-center mt-5 mb-5">
+        <%= @end_user.name %>さんのフォロー</br>
+        一覧
+      </h3>
     </div>
     <div class="row justify-content-center">
       <% @end_users.each do |end_user| %>

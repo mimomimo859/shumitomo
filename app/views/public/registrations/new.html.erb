@@ -1,4 +1,4 @@
-<main class="container">
+<main class="container m-5">
  <div class="row d-flex justify-content-start">
 
   <div class="col-7">
@@ -24,11 +24,11 @@
       </td>
       <td>
        <%= f.radio_button :sex, "man" %>
-       <%= f.label :sex, "男性", {value: 0, style: "display: inline-block;"} %>
+       <%= f.label :sex, "男性", {value: :man, style: "display: inline-block;"} %>
        <%= f.radio_button :sex, "female" %>
-       <%= f.label :sex, "女性", {value: 1, style: "display: inline-block;"} %>
+       <%= f.label :sex, "女性", {value: :female, style: "display: inline-block;"} %>
        <%= f.radio_button :sex, "non_binary" %>
-       <%= f.label :sex, "X", {value: 2, style: "display: inline-block;"} %>
+       <%= f.label :sex, "X", {value: :non_binary, style: "display: inline-block;"} %>
       </td>
      </tr>
      <tr>

@@ -1,4 +1,5 @@
 class Public::EndUsersController < ApplicationController
+before_action :prevent_url, only: [:edit, :update, :destroy]
 
   def update
    @end_user = EndUser.find(params[:id])
@@ -29,13 +30,13 @@ class Public::EndUsersController < ApplicationController
   end
 
   def follows
-   end_user = EndUser.find(params[:id])
-   @end_users = end_user.following_end_user.page(params[:page]).per(3).reverse_order
+   @end_user = EndUser.find(params[:id])
+   @end_users = @end_user.following_end_user.page(params[:page]).per(3).reverse_order
   end
 
   def followers
-   end_user = EndUser.find(params[:id])
-   @end_users = end_user.follower_end_user.page(params[:page]).per(3).reverse_order
+   @end_user = EndUser.find(params[:id])
+   @end_users = @end_user.follower_end_user.page(params[:page]).per(3).reverse_order
   end
 
   def withdraw
@@ -61,6 +62,13 @@ class Public::EndUsersController < ApplicationController
 
   def current_end_user_params
       params.require(:end_user).permit(:name, :sex, :self_introduction, :email, :profile_image)
+  end
+
+  def prevent_url
+   @end_user = EndUser.find(params[:id])
+    if @end_user.id != current_end_user.id
+      redirect_to root_path
+    end
   end
 
 end

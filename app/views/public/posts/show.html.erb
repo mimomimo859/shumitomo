@@ -10,6 +10,7 @@
      <% end %>
 
      <p><%= @post.content %></p>
+     <p>投稿日　<%= @post.created_at.strftime("%Y年 %m月 %d日")  %></p>
 
      <% @tags.each do |tag| %>
       <p><%= tag.tag_name %></p>
@@ -23,7 +24,7 @@
     <div class="like">
 
      <% if @post.end_user != current_end_user %>
-     
+
 
       <div id="like_<%= @post.id %>">
        <%= render 'public/likes/like' %>

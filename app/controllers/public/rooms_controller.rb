@@ -1,4 +1,5 @@
 class Public::RoomsController < ApplicationController
+#before_action :prevent_url, only: [:create]
 
   def create
     current_end_user_room_id = 0
@@ -34,6 +35,14 @@ class Public::RoomsController < ApplicationController
 
   def chat_params
     params.require(:chat).permit(:message, :room_id, :end_user_id)
+  end
+
+  def prevent_url
+   @room = Room.find(params[:id])
+   @end_user = EndUserRoom.where(room_id: @room.id)
+    if @end_user.id != current_end_user.id
+      redirect_to root_path
+    end
   end
 
 end
