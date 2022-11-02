@@ -1,5 +1,5 @@
 class Public::RoomsController < ApplicationController
-#before_action :prevent_url, only: [:create]
+before_action :prevent_url, except: [:create]
 
   def create
     current_end_user_room_id = 0
@@ -39,10 +39,13 @@ class Public::RoomsController < ApplicationController
 
   def prevent_url
    @room = Room.find(params[:id])
-   @end_user = EndUserRoom.where(room_id: @room.id)
-    if @end_user.id != current_end_user.id
-      redirect_to root_path
+   @end_user_rooms = EndUserRoom.where(room_id: @room.id)
+   @end_user_rooms.each do |end_user_room|
+    # ログインユーザーとルームに参加しているユーザーが同じじゃない時
+    unless end_user_room.end_user_id = current_end_user.id
+       redirect_to root_path
     end
+   end
   end
 
 end
