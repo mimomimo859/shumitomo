@@ -40,12 +40,12 @@ before_action :prevent_url, except: [:create]
   def prevent_url
    @room = Room.find(params[:id])
    @end_user_rooms = EndUserRoom.where(room_id: @room.id)
-   @end_user_rooms.each do |end_user_room|
     # ログインユーザーとルームに参加しているユーザーが同じじゃない時
-    unless end_user_room.end_user_id = current_end_user.id
-       redirect_to root_path
+    unless @end_user_rooms.first.end_user_id == current_end_user.id
+      redirect_to root_path and return
+    else @end_user_rooms.last.end_user_id != current_end_user.id
+      @end_user_rooms.last.end_user_id != current_end_user.id
     end
-   end
   end
 
 end
