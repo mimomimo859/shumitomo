@@ -61,7 +61,7 @@ gem "refile", require: "refile/rails", github: 'manfe/refile'
 gem "refile-mini_magick"
 gem "image_processing", ">= 1.2"
 # 日本語化(Rails 6の場合)
-gem 'rails-i18n', '~> 6.0'
+gem 'rails-i18n'
 gem 'devise-i18n'
 # ページネーション機能
 gem 'kaminari'

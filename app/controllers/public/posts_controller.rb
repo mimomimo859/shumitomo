@@ -4,6 +4,7 @@ before_action :prevent_url, only: [:edit, :update, :destroy]
   def new
    # 空のitem_paramsを@itemに代入する
    @post = Post.new
+   @tag = Tag.new
   end
 
   def create
@@ -12,13 +13,11 @@ before_action :prevent_url, only: [:edit, :update, :destroy]
    # 送られてきた複数のtag_nameを','を目印に分割して配列として受け取る
    tag_list = params[:post][:tag_name].split(',')
    # newアクションで入力されたデータを保存する
-   if @post.save!
+   if @post.save
       @post.save_posts(tag_list)
     # indexアクションを通って「@post = Post.page(params[:page])」を受け取ってから「posts_path」へ移動する
     redirect_to posts_path
    else
-    # indexアクションを通らずに直接「posts_path」へ移動するため「@post = Post.all」を記載する
-    @post = Post.all
     flash.now[:alert] = '投稿に失敗しました'
     render :new
    end

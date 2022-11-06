@@ -1,6 +1,31 @@
----
 ja:
   activerecord:
+    attributes:
+      end_users:
+        email: 'eメール'
+        name: '名前'
+        self_introduction: '自己紹介'
+        sex: '性別'
+        is_deleted: '退会ステータス'
+        password: 'パスワード'
+      admins:
+        email: 'eメール'
+        password: 'パスワード'
+      chats:
+        message: 'メッセージ'
+      comment:
+        comment: 'コメント'
+      participant:
+        status: 'お題参加ステータス'
+      post:
+        content: '記事'
+        picture: '画像'
+      tags:
+        tag_name: 'タグ名'
+      thema:
+        thema: 'お題'
+        explanation: '説明'
+        limit: '締切'
     errors:
       messages:
         record_invalid: 'バリデーションに失敗しました: %{errors}'
@@ -210,4 +235,3 @@ ja:
       name: 名前
       age: 年齢
   site_title: サイトのタイトル
- 

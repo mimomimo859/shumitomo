@@ -3,7 +3,8 @@
    <div class="container m-5">
     <h4 class="m-4">新規投稿</h4>
 
-    <%= form_with model: [@tag,@post], local:true, url:posts_path  do |f| %>
+    <%= form_with model: [@tag,@post], local:true, url: posts_path do |f| %>
+    <%= render 'layouts/error_messages', object: f.object %>
 
     <table>
      <%= f.hidden_field :end_user_id, :value => current_end_user.id %>

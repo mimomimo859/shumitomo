@@ -18,8 +18,11 @@ before_action :prevent_url, only: [:edit, :update, :destroy]
 
   def create
     @thema = Thema.new(thema_params)
-    @thema.save
-    redirect_to themas_path
+    if @thema.save
+     redirect_to themas_path
+    else
+     render :new
+    end
   end
 
   def index
