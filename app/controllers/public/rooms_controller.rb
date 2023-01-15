@@ -2,25 +2,33 @@ class Public::RoomsController < ApplicationController
 before_action :prevent_url, except: [:create]
 
   def create
+    #「current_end_user_room_id」に０を代入
     current_end_user_room_id = 0
+    #「current_end_user_rooms」にRoom中間テーブル内のcurrent_end_user.idを持ったデータを代入
     current_end_user_rooms = EndUserRoom.where(end_user_id: current_end_user.id)
     current_end_user_rooms.each do |current_end_user_room|
       current_end_user_room_id = current_end_user_room.room_id
     end
-
+    #「partner_end_user_room_id」に１を代入
     partner_end_user_room_id = 1
+    #「partner_end_user_rooms」にRoom中間テーブル内のpartner_idを持ったデータを代入
     partner_end_user_rooms = EndUserRoom.where(end_user_id: params[:partner_id])
     partner_end_user_rooms.each do |partner_end_user_room|
       partner_end_user_room_id = partner_end_user_room.room_id
     end
 
     unless current_end_user_room_id == partner_end_user_room_id
-      room = Room.create
-      EndUserRoom.create(end_user_id: current_end_user.id, room_id: room.id)
-      EndUserRoom.create(end_user_id: params[:partner_id], room_id: room.id)
-      # rooms/show.html.erbへ遷移
+     EndUserRoom.transaction do
+      # テーブルへのアクセス処理
+      room = Room.create!
+      EndUserRoom.create!(end_user_id: current_end_user.id, room_id: room.id)
+      EndUserRoom.create!(end_user_id: params[:partner_id], room_id: room.id)
+     end
+     # トランザクション処理が成功した場合の処理
+     # rooms/show.html.erbへ遷移
       redirect_to room_path(room)
     else
+     # トランザクション処理が失敗した場合の処理
       redirect_to room_path(partner_end_user_room_id)
     end
   end
